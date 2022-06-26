@@ -11,6 +11,8 @@ import { authActions } from "../store/auth-slice";
 // }
 
 const Signin = () => {
+  const [loading, setLoading] = useState(false);
+
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const [values, setValues] = useState({
@@ -28,6 +30,7 @@ const Signin = () => {
     data: FormProps
   ) => {
     e.preventDefault();
+    setLoading(true);
     axios
       .post(
         "https://floating-bayou-81904.herokuapp.com/api/users/signin",
@@ -51,7 +54,10 @@ const Signin = () => {
           console.log(errors);
           setErrors((oldErrors) => ({ ...oldErrors, ...errors }));
         }
-      );
+      )
+      .finally(() => {
+        setLoading(false);
+      });
   };
   const onChange = (
     e: React.ChangeEvent<HTMLInputElement>,
@@ -63,7 +69,7 @@ const Signin = () => {
   return (
     <div className="Form">
       <h1>Signin</h1>
-      <Form onSubmit={handleSignin} noValidate>
+      <Form onSubmit={handleSignin} noValidate loading={loading}>
         <Form.Input
           error={
             errors.email !== "" && {

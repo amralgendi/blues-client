@@ -23,16 +23,20 @@ const Register = () => {
     password: "",
     confirmPassword: "",
   });
+  const [loading, setLoading] = useState(false);
   console.log(values);
 
   const handleRegister = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+    setLoading(true);
     axios
       .post(
         "https://floating-bayou-81904.herokuapp.com/api/users/register",
         values
       )
       .then(({ data: { data } }) => {
+        // setLoading(false);
+
         localStorage.setItem("token", data.token);
         dispatch(authActions.signin(data));
         navigate("/verify");
@@ -43,10 +47,15 @@ const Register = () => {
             data: { errors },
           },
         }) => {
+          // setLoading(false);
+
           console.log(errors);
           setErrors((oldErrors) => ({ ...oldErrors, ...errors }));
         }
-      );
+      )
+      .finally(() => {
+        setLoading(false);
+      });
   };
   const onChange = (
     e: React.ChangeEvent<HTMLInputElement>,
@@ -58,7 +67,7 @@ const Register = () => {
   return (
     <div className="Form">
       <h1>Register</h1>
-      <Form onSubmit={handleRegister} noValidate>
+      <Form onSubmit={handleRegister} noValidate loading={loading}>
         <Form.Input
           error={
             errors.email !== "" && {

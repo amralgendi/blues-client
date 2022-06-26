@@ -9,12 +9,14 @@ const Verify = () => {
   const dispatch = useDispatch();
   const [code, setCode] = useState("");
   const [errors, setErrors] = useState("");
+  const [loading, setLoading] = useState(false);
+
   const { user } = useSelector((state: RootState) => state.auth);
 
   const handleVerify = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     console.log(localStorage.getItem("token"));
-
+    setLoading(true);
     axios
       .get(
         `https://floating-bayou-81904.herokuapp.com/api/users/verify?code=${code}`,
@@ -37,7 +39,10 @@ const Verify = () => {
           console.log(errors);
           setErrors(Object.values(errors as object)[0]);
         }
-      );
+      )
+      .finally(() => {
+        setLoading(false);
+      });
   };
   const onChange = (
     e: React.ChangeEvent<HTMLInputElement>,
@@ -49,7 +54,7 @@ const Verify = () => {
   return (
     <div className="Form">
       <h1>Verify User</h1>
-      <Form onSubmit={handleVerify} noValidate>
+      <Form onSubmit={handleVerify} noValidate loading={loading}>
         <Form.Input
           error={
             errors !== "" && {
