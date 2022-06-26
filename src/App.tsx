@@ -1,6 +1,6 @@
 import "semantic-ui-css/semantic.min.css";
 import "./App.css";
-
+import Error from "./pages/Error";
 import NavBar from "./components/NavBar";
 import { Container } from "semantic-ui-react";
 import { Route, Routes } from "react-router-dom";
@@ -55,6 +55,7 @@ function App() {
             element={<Reset />}
           />
           <Route {...exactProp} path="/edit-todo/:id/" element={<EditTodo />} />
+          <Route {...exactProp} path="*" element={<Error />} />
         </Routes>
       </Container>
     </Container>
