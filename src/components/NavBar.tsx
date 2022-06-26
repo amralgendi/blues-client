@@ -15,7 +15,9 @@ const NavBar = () => {
 
   useEffect(() => {
     if (location.pathname.split("/")[1])
-      setActiveItem(location.pathname.split("/")[1]);
+      if (location.pathname.split("/")[1] === "create-todo")
+        setActiveItem("create todo");
+      else setActiveItem(location.pathname.split("/")[1]);
   }, [location.pathname]);
 
   const handleItemClick = (

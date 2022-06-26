@@ -103,14 +103,16 @@ const Home = () => {
                 return Rows;
               })()
             ) : (
-              <Grid.Row centered>
+              <Grid.Row centered className="font-full-row">
                 U have no Todos... <Link to="/create-todo">Create one?</Link>
               </Grid.Row>
             )}
           </Grid>
         </div>
       ) : (
-        <>Welcome</>
+        <div className="font-full-screen">
+          Welcome to Amr AlGendi's Todo App
+        </div>
       )}
     </>
   );

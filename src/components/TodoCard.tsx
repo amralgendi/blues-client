@@ -1,3 +1,4 @@
+import { useNavigate } from "react-router-dom";
 import { Card, Icon } from "semantic-ui-react";
 import { ITodoData } from "../interfaces/todos";
 interface ITodoCardProps {
@@ -16,6 +17,7 @@ const TodoCard = ({
   },
   handleDelete,
 }: ITodoCardProps) => {
+  const navigate = useNavigate();
   const meta = `from ${new Date(startDate).toLocaleDateString()} to ${new Date(
     endDate
   ).toLocaleDateString()}`;
@@ -55,7 +57,13 @@ const TodoCard = ({
             <div className="priority-description">{priority} Priority</div>
           </div>
           <div>
-            <Icon size="large" link to="/" name="edit" />
+            <Icon
+              onClick={() => navigate(`/edit-todo/${id}`)}
+              size="large"
+              link
+              to="/"
+              name="edit"
+            />
             <Icon
               size="large"
               link

@@ -15,6 +15,7 @@ import { authActions } from "./store/auth-slice";
 import Forgot from "./pages/Forgot";
 import Reset from "./pages/Reset";
 import CreateTodo from "./pages/CreateTodo";
+import EditTodo from "./pages/EditTodo";
 
 interface IExactProp {
   exact: boolean;
@@ -27,6 +28,8 @@ function App() {
     console.log("hey");
 
     if (token) {
+      console.log(token);
+
       const { id, email, verified } = jwtDecode(token) as {
         id: string;
         email: string;
@@ -51,6 +54,7 @@ function App() {
             path="/reset-password/:id/:token"
             element={<Reset />}
           />
+          <Route {...exactProp} path="/edit-todo/:id/" element={<EditTodo />} />
         </Routes>
       </Container>
     </Container>
