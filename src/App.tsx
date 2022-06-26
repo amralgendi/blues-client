@@ -24,6 +24,8 @@ function App() {
   const dispatch = useDispatch();
   useEffect(() => {
     const token = localStorage.getItem("token-blues");
+    console.log("hey");
+
     if (token) {
       const { id, email, verified } = jwtDecode(token) as {
         id: string;

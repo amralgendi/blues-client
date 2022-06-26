@@ -37,7 +37,7 @@ const Register = () => {
       .then(({ data: { data } }) => {
         // setLoading(false);
 
-        localStorage.setItem("token", data.token);
+        localStorage.setItem("token-blues", data.token);
         dispatch(authActions.signin(data));
         navigate("/verify");
       })

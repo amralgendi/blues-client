@@ -39,7 +39,7 @@ const Signin = () => {
       .then(({ data: { data } }) => {
         console.log(data);
 
-        localStorage.setItem("token", data.token);
+        localStorage.setItem("token-blues", data.token);
 
         dispatch(authActions.signin(data));
         if (!data.verified) navigate("/verify");

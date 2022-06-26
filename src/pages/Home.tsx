@@ -41,7 +41,7 @@ const Home = () => {
       axios
         .get("https://floating-bayou-81904.herokuapp.com/api/todos", {
           headers: {
-            authentication: `Bearer ${localStorage.getItem("token")}`,
+            authentication: `Bearer ${user!.token}`,
           },
         })
         .then(({ data: { data } }) => {
@@ -52,7 +52,7 @@ const Home = () => {
         })
         .catch((e) => console.log(e));
     }
-  }, [isLoggedIn]);
+  }, [isLoggedIn, user]);
   useEffect(() => {
     function checkSize() {
       const width = window.innerWidth;

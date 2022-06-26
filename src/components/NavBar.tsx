@@ -4,8 +4,10 @@ import { useSelector, useDispatch } from "react-redux";
 import { RootState } from "../store";
 import { Link, useLocation } from "react-router-dom";
 import { authActions } from "../store/auth-slice";
+import { useNavigate } from "react-router-dom";
 
 const NavBar = () => {
+  const navigate = useNavigate();
   const dispatch = useDispatch();
   const [activeItem, setActiveItem] = useState("home");
   const isLoggedIn = useSelector((state: RootState) => state.auth.isLoggedIn);
@@ -25,6 +27,7 @@ const NavBar = () => {
   const handleLogout = () => {
     localStorage.removeItem("token-blues");
     dispatch(authActions.signout());
+    navigate("/");
   };
   return (
     <Menu size="massive" secondary>

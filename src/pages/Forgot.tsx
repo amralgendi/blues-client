@@ -13,7 +13,7 @@ const Forgot = () => {
 
   const handleVerify = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    console.log(localStorage.getItem("token"));
+    console.log(localStorage.getItem("token-blues"));
 
     axios
       .post(
