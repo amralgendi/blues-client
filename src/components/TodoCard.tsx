@@ -22,7 +22,7 @@ const TodoCard = ({
     endDate
   ).toLocaleDateString()}`;
   const progressBar =
-    priority === "Low" ? "27%" : priority === "Medium" ? "54%" : "81%";
+    priority === "Low" ? "33%" : priority === "Medium" ? "67%" : "100%";
   const progressBarColor =
     priority === "Low" ? "green" : priority === "Medium" ? "yellow" : "red";
   return (

@@ -27,7 +27,7 @@ const Verify = () => {
         }
       )
       .then(({ data: { token, ...data } }) => {
-        localStorage.setItem("token", data.token);
+        localStorage.setItem("token-blues", data.token);
         dispatch(authActions.signin(data));
       })
       .catch(
