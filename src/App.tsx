@@ -23,7 +23,7 @@ const exactProp: IExactProp = { exact: true };
 function App() {
   const dispatch = useDispatch();
   useEffect(() => {
-    const token = localStorage.getItem("token");
+    const token = localStorage.getItem("token-blues");
     if (token) {
       const { id, email, verified } = jwtDecode(token) as {
         id: string;
