@@ -37,6 +37,8 @@ const Home = () => {
   };
 
   useEffect(() => {
+    console.log(user);
+
     if (isLoggedIn) {
       axios
         .get("https://floating-bayou-81904.herokuapp.com/api/todos", {

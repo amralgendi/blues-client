@@ -32,7 +32,7 @@ function App() {
         email: string;
         verified: boolean;
       };
-      dispatch(authActions.signin({ id, email, verified }));
+      dispatch(authActions.signin({ id, email, verified, token }));
     }
   }, [dispatch]);
   return (
