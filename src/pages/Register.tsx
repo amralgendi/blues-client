@@ -32,17 +32,11 @@ const Register = () => {
         "https://floating-bayou-81904.herokuapp.com/api/users/register",
         values
       )
-      .then(
-        ({
-          data: {
-            data: { token, ...data },
-          },
-        }) => {
-          localStorage.setItem("token", token);
-          dispatch(authActions.signin(data));
-          navigate("/verify");
-        }
-      )
+      .then(({ data: { data } }) => {
+        localStorage.setItem("token", data.token);
+        dispatch(authActions.signin(data));
+        navigate("/verify");
+      })
       .catch(
         ({
           response: {

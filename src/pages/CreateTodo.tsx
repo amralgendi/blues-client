@@ -7,6 +7,8 @@ import {
   InputOnChangeData,
 } from "semantic-ui-react";
 import { useNavigate } from "react-router-dom";
+import { useSelector } from "react-redux";
+import { RootState } from "../store";
 type priorityEnum = "High" | "Medium" | "Low";
 type statusEnum = "In Progress" | "Under Review" | "Rework" | "Completed";
 
@@ -20,6 +22,8 @@ interface ITodoData {
 }
 
 const CreateTodo = () => {
+  const { user } = useSelector((state: RootState) => state.auth);
+
   const navigate = useNavigate();
   const [values, setValues] = useState<ITodoData>({
     title: "",
@@ -51,7 +55,7 @@ const CreateTodo = () => {
         },
         {
           headers: {
-            authentication: `Bearer ${localStorage.getItem("token")}`,
+            authentication: `Bearer ${user!.token}`,
           },
         }
       )

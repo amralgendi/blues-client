@@ -4,6 +4,7 @@ interface IUser {
   id: string;
   email: string;
   verified: boolean;
+  token: string;
 }
 interface IAuthState {
   isLoggedIn: boolean;

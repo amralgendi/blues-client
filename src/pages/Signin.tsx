@@ -33,22 +33,15 @@ const Signin = () => {
         "https://floating-bayou-81904.herokuapp.com/api/users/signin",
         values
       )
-      .then(
-        ({
-          data: {
-            data: { token, ...data },
-          },
-        }) => {
-          console.log(data);
+      .then(({ data: { data } }) => {
+        console.log(data);
 
-          localStorage.setItem("token", token);
-          console.log(token, localStorage.getItem("token"));
+        localStorage.setItem("token", data.token);
 
-          dispatch(authActions.signin(data));
-          if (!data.verified) navigate("/verify");
-          else navigate("/");
-        }
-      )
+        dispatch(authActions.signin(data));
+        if (!data.verified) navigate("/verify");
+        else navigate("/");
+      })
       .catch(
         ({
           response: {
