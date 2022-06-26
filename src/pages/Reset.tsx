@@ -30,7 +30,7 @@ const Reset = () => {
     e.preventDefault();
     axios
       .post(
-        `http://localhost:5000/api/users/reset-password/${id}/${token}`,
+        `https://floating-bayou-81904.herokuapp.com/api/users/reset-password/${id}/${token}`,
         values
       )
       .then(({ data: { success, message } }) => {

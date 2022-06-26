@@ -28,7 +28,10 @@ const Register = () => {
   const handleRegister = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     axios
-      .post("http://localhost:5000/api/users/register", values)
+      .post(
+        "https://floating-bayou-81904.herokuapp.com/api/users/register",
+        values
+      )
       .then(
         ({
           data: {

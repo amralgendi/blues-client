@@ -25,7 +25,7 @@ const Home = () => {
       return [...(oldTodos as ITodoData[])];
     });
     axios
-      .delete(`http://localhost:5000/api/todos/${id}`, {
+      .delete(`https://floating-bayou-81904.herokuapp.com/api/todos/${id}`, {
         headers: {
           authentication: `Bearer ${localStorage.getItem("token")}`,
         },
@@ -39,7 +39,7 @@ const Home = () => {
   useEffect(() => {
     if (isLoggedIn) {
       axios
-        .get("http://localhost:5000/api/todos", {
+        .get("https://floating-bayou-81904.herokuapp.com/api/todos", {
           headers: {
             authentication: `Bearer ${localStorage.getItem("token")}`,
           },

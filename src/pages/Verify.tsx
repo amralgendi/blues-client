@@ -17,11 +17,14 @@ const Verify = () => {
     console.log(localStorage.getItem("token"));
 
     axios
-      .get(`http://localhost:5000/api/users/verify?code=${code}`, {
-        headers: {
-          authentication: `Bearer ${localStorage.getItem("token")}`,
-        },
-      })
+      .get(
+        `https://floating-bayou-81904.herokuapp.com/api/users/verify?code=${code}`,
+        {
+          headers: {
+            authentication: `Bearer ${localStorage.getItem("token")}`,
+          },
+        }
+      )
       .then(({ data: { token, ...data } }) => {
         localStorage.setItem("token", data.token);
         dispatch(authActions.signin(data));

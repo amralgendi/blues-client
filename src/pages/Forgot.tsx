@@ -16,7 +16,10 @@ const Forgot = () => {
     console.log(localStorage.getItem("token"));
 
     axios
-      .post(`http://localhost:5000/api/users/forgot-password`, { email })
+      .post(
+        `https://floating-bayou-81904.herokuapp.com/api/users/forgot-password`,
+        { email }
+      )
       .then(({ data: { success, message } }) => {
         console.log(success, message);
 
