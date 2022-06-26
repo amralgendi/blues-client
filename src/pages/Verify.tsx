@@ -9,7 +9,7 @@ const Verify = () => {
   const dispatch = useDispatch();
   const [code, setCode] = useState("");
   const [errors, setErrors] = useState("");
-  const user = useSelector((state: RootState) => state.auth);
+  const { user } = useSelector((state: RootState) => state.auth);
 
   const handleVerify = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -20,7 +20,7 @@ const Verify = () => {
         `https://floating-bayou-81904.herokuapp.com/api/users/verify?code=${code}`,
         {
           headers: {
-            authentication: `Bearer ${user.token}`,
+            authentication: `Bearer ${user!.token}`,
           },
         }
       )

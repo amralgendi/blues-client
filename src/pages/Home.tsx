@@ -8,7 +8,7 @@ import TodoCard from "../components/TodoCard";
 import { Link } from "react-router-dom";
 
 const Home = () => {
-  const { isLoggedIn } = useSelector((state: RootState) => state.auth);
+  const { isLoggedIn, user } = useSelector((state: RootState) => state.auth);
   const [todos, setTodos] = useState<ITodoData[] | null>(null);
   const [columns, setColumns] = useState(1);
   const handleDelete = (id: string) => {
@@ -27,7 +27,7 @@ const Home = () => {
     axios
       .delete(`https://floating-bayou-81904.herokuapp.com/api/todos/${id}`, {
         headers: {
-          authentication: `Bearer ${localStorage.getItem("token")}`,
+          authentication: `Bearer ${user!.token}`,
         },
       })
       .then(({ data: { success, message } }) => {
