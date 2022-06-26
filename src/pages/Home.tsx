@@ -1,7 +1,7 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
-import { Grid, SemanticWIDTHS } from "semantic-ui-react";
+import { Grid, Loader, SemanticWIDTHS } from "semantic-ui-react";
 import { RootState } from "../store";
 import { ITodoData } from "../interfaces/todos";
 import TodoCard from "../components/TodoCard";
@@ -11,6 +11,7 @@ const Home = () => {
   const { isLoggedIn, user } = useSelector((state: RootState) => state.auth);
   const [todos, setTodos] = useState<ITodoData[] | null>(null);
   const [columns, setColumns] = useState(1);
+  const [loading, setLoading] = useState(true);
   const handleDelete = (id: string) => {
     console.log("deleting");
 
@@ -47,6 +48,7 @@ const Home = () => {
           },
         })
         .then(({ data: { data } }) => {
+          setLoading(false);
           console.log(data);
 
           setTodos(data);
@@ -68,17 +70,17 @@ const Home = () => {
   return (
     <>
       {isLoggedIn ? (
-        todos && (todos as ITodoData[]).length > 0 ? (
-          <div className="grid-container">
-            <Grid
-              columns={columns as SemanticWIDTHS}
-              stretched
-              className="Grid"
-            >
+        <div className="grid-container">
+          <Grid columns={columns as SemanticWIDTHS} stretched className="Grid">
+            <Grid.Row centered>
+              <h1>Todos</h1>
+            </Grid.Row>
+            {loading ? (
               <Grid.Row centered>
-                <h1>Todos</h1>
+                <Loader />
               </Grid.Row>
-              {(() => {
+            ) : (todos as ITodoData[]).length > 0 ? (
+              (() => {
                 if (!todos) return;
                 const Rows: JSX.Element[] = [];
                 for (let i = 0; i < todos.length; i += columns) {
@@ -99,14 +101,14 @@ const Home = () => {
                   Rows.push(<Grid.Row centered>{Columns}</Grid.Row>);
                 }
                 return Rows;
-              })()}
-            </Grid>
-          </div>
-        ) : (
-          <div>
-            U have no Todos... <Link to="/create-todo">Create one?</Link>
-          </div>
-        )
+              })()
+            ) : (
+              <Grid.Row centered>
+                U have no Todos... <Link to="/create-todo">Create one?</Link>
+              </Grid.Row>
+            )}
+          </Grid>
+        </div>
       ) : (
         <>Welcome</>
       )}
