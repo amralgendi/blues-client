@@ -15,9 +15,12 @@
 }
 .font-full-screen {
   font-size: 3rem;
+  line-height: normal;
 }
 .font-full-row {
   font-size: 1.5rem;
+  line-height: normal;
+  height: 100%;
 }
 .card-content-primary {
   flex: 1;
