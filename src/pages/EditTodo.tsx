@@ -9,6 +9,8 @@ import {
 import { useNavigate, useParams } from "react-router-dom";
 import { useSelector } from "react-redux";
 import { RootState } from "../store";
+import { authActions } from "../store/auth-slice";
+import { useDispatch } from "react-redux";
 type priorityEnum = "High" | "Medium" | "Low";
 type statusEnum = "In Progress" | "Under Review" | "Rework" | "Completed";
 
@@ -22,6 +24,7 @@ interface ITodoData {
 }
 
 const EditTodo = () => {
+  const dispatch = useDispatch();
   const { id } = useParams();
   const { user } = useSelector((state: RootState) => state.auth);
   const [loading, setLoading] = useState(true);
@@ -77,6 +80,10 @@ const EditTodo = () => {
       .finally(() => setLoading(false));
   };
   useEffect(() => {
+    if (user && user.verified) {
+      dispatch(authActions.signout());
+      return;
+    }
     console.log("sawsan");
     user &&
       axios
@@ -109,7 +116,7 @@ const EditTodo = () => {
           }
         )
         .finally(() => setLoading(false));
-  }, [id, user]);
+  }, [id, user, dispatch]);
   const onChange = (
     e: React.ChangeEvent<HTMLInputElement> | React.FormEvent<HTMLInputElement>,
     { name, value }: InputOnChangeData | CheckboxProps

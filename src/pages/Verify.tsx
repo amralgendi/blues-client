@@ -1,11 +1,13 @@
 import axios from "axios";
 import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
 import { Button, Form, InputOnChangeData } from "semantic-ui-react";
 import { RootState } from "../store";
 import { authActions } from "../store/auth-slice";
 
 const Verify = () => {
+  const navigate = useNavigate();
   const dispatch = useDispatch();
   const [code, setCode] = useState("");
   const [errors, setErrors] = useState("");
@@ -29,6 +31,7 @@ const Verify = () => {
       .then(({ data: { token, ...data } }) => {
         localStorage.setItem("token-blues", data.token);
         dispatch(authActions.signin(data));
+        navigate("/");
       })
       .catch(
         ({

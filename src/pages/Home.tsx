@@ -16,8 +16,11 @@ import { RootState } from "../store";
 import { ITodoData } from "../interfaces/todos";
 import TodoCard from "../components/TodoCard";
 import { Link } from "react-router-dom";
+import { useDispatch } from "react-redux";
+import { authActions } from "../store/auth-slice";
 
 const Home = () => {
+  const dispatch = useDispatch();
   const { isLoggedIn, user } = useSelector((state: RootState) => state.auth);
   const [todos, setTodos] = useState<ITodoData[] | null>(null);
   const [searchedTodos, setSearchedTodos] = useState<ITodoData[]>([]);
@@ -132,7 +135,7 @@ const Home = () => {
   useEffect(() => {
     console.log(user);
 
-    if (isLoggedIn) {
+    if (isLoggedIn && user!.verified) {
       axios
         .get("https://floating-bayou-81904.herokuapp.com/api/todos", {
           headers: {
@@ -147,9 +150,13 @@ const Home = () => {
           setSearchedTodos(data);
           console.log(data);
         })
-        .catch((e) => console.log(e));
+        .catch((e) => {
+          console.log(e);
+        });
+    } else {
+      dispatch(authActions.signout());
     }
-  }, [isLoggedIn, user]);
+  }, [isLoggedIn, user, dispatch]);
   useEffect(() => {
     function checkSize() {
       const width = window.innerWidth;
